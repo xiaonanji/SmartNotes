@@ -1,0 +1,350 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+#app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e1e5e9;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    color: #2563eb;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#nav {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nav-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nav-btn:hover {
+    background: #f3f4f6;
+}
+
+.nav-btn.active {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+main {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.view-header h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.primary-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.primary-btn:hover {
+    background: #1d4ed8;
+}
+
+.secondary-btn {
+    background: white;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.secondary-btn:hover {
+    background: #f3f4f6;
+}
+
+.notebooks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.notebook-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #e5e7eb;
+}
+
+.notebook-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.notebook-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+}
+
+.notebook-card .note-count {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.note-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #e5e7eb;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.note-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.note-card .note-type {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+}
+
+.note-card .note-content {
+    margin-top: 0.5rem;
+}
+
+.note-card .note-text {
+    color: #374151;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.note-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+}
+
+.note-card .note-date {
+    color: #6b7280;
+    font-size: 0.75rem;
+    margin-top: 1rem;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 0.5rem;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: #ef4444;
+    color: white;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.note-card:hover .delete-btn,
+.notebook-card:hover .delete-btn {
+    opacity: 1;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-content h3 {
+    margin-bottom: 1.5rem;
+    color: #1f2937;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.modal-content textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.note-type-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.note-type-btn {
+    padding: 1rem 0.5rem;
+    border: 2px solid #e5e7eb;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.note-type-btn:hover {
+    border-color: #2563eb;
+    background: #f0f9ff;
+}
+
+.note-type-btn.selected {
+    border-color: #2563eb;
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}
+
+#imagePasteArea,
+#textPasteArea {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+}
+
+#imagePasteArea.dragover {
+    border-color: #2563eb;
+    background: #f0f9ff;
+}
+
+.empty-state {
+    text-align: center;
+    color: #6b7280;
+    padding: 3rem;
+}
+
+.empty-state h3 {
+    margin-bottom: 0.5rem;
+    color: #9ca3af;
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 1rem;
+    }
+    
+    main {
+        padding: 1rem;
+    }
+    
+    .notebooks-grid,
+    .notes-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        margin: 1rem;
+        width: calc(100% - 2rem);
+    }
+}

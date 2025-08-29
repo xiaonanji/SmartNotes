@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartNotes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>SmartNotes</h1>
+            <nav id="nav">
+                <button id="homeBtn" class="nav-btn active">Notebooks</button>
+                <button id="backBtn" class="nav-btn" style="display: none;">← Back</button>
+            </nav>
+        </header>
+
+        <main id="main-content">
+            <!-- Notebooks View -->
+            <div id="notebooks-view" class="view">
+                <div class="view-header">
+                    <h2>My Notebooks</h2>
+                    <button id="createNotebookBtn" class="primary-btn">+ New Notebook</button>
+                </div>
+                <div id="notebooks-container" class="notebooks-grid">
+                    <!-- Notebooks will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Notes View -->
+            <div id="notes-view" class="view" style="display: none;">
+                <div class="view-header">
+                    <h2 id="notebook-title">Notebook Title</h2>
+                    <button id="createNoteBtn" class="primary-btn">+ New Note Card</button>
+                </div>
+                <div id="notes-container" class="notes-grid">
+                    <!-- Note cards will be rendered here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="createNotebookModal" class="modal">
+        <div class="modal-content">
+            <h3>Create New Notebook</h3>
+            <input type="text" id="notebookNameInput" placeholder="Notebook name" />
+            <div class="modal-actions">
+                <button id="cancelNotebookBtn" class="secondary-btn">Cancel</button>
+                <button id="saveNotebookBtn" class="primary-btn">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="createNoteModal" class="modal">
+        <div class="modal-content">
+            <h3>Create New Note Card</h3>
+            <div class="note-type-selector">
+                <button class="note-type-btn" data-type="text">📝 Text Note</button>
+                <button class="note-type-btn" data-type="image">🖼️ Image Note</button>
+                <button class="note-type-btn" data-type="paste">📋 Paste Content</button>
+            </div>
+            <div id="noteContentArea" style="display: none;">
+                <textarea id="noteTextInput" placeholder="Enter your note here..." style="display: none;"></textarea>
+                <input type="file" id="noteImageInput" accept="image/*" style="display: none;" />
+                <div id="imagePasteArea" style="display: none;">
+                    <p>Paste an image here (Ctrl+V) or drag and drop</p>
+                </div>
+                <div id="textPasteArea" style="display: none;">
+                    <textarea placeholder="Paste your content here..."></textarea>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="cancelNoteBtn" class="secondary-btn">Cancel</button>
+                <button id="saveNoteBtn" class="primary-btn" style="display: none;">Save Note</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
