@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Notebook {
+  id        String   @id @default(cuid())
+  name      String
+  subtitle  String?
+  coverImage String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  notes     Note[]
+
+  @@map("notebooks")
+}
+
+model Note {
+  id            String       @id @default(cuid())
+  type          String       // 'text', 'image', 'paste'
+  content       String
+  x             Float        @default(0)
+  y             Float        @default(0)
+  width         Float        @default(300)
+  height        Float        @default(200)
+  notebookId    String
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  notebook      Notebook     @relation(fields: [notebookId], references: [id], onDelete: Cascade)
+  connectionsFrom Connection[] @relation("FromNote")
+  connectionsTo   Connection[] @relation("ToNote")
+
+  @@map("notes")
+}
+
+model Connection {
+  id       String @id @default(cuid())
+  fromNoteId String
+  toNoteId   String
+  fromSide   String // 'top', 'right', 'bottom', 'left'
+  toSide     String // 'top', 'right', 'bottom', 'left'
+  createdAt  DateTime @default(now())
+  fromNote   Note   @relation("FromNote", fields: [fromNoteId], references: [id], onDelete: Cascade)
+  toNote     Note   @relation("ToNote", fields: [toNoteId], references: [id], onDelete: Cascade)
+
+  @@map("connections")
+}
